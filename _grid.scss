@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap');
+
+html {
+  font-family: "Noto Sans TC", serif;
+}
+
+$breakpoints: (
+  sm: 414px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1200px,
+);
+
+// 定義重置 CSS 的混合
+@mixin resetCss() {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  a,
+  header,
+  menu,
+  nav,
+  aside,
+  main,
+  article,
+  section,
+  form,
+  input,
+  label,
+  table,
+  tr,
+  td,
+  th,
+  img {
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    box-sizing: border-box;
+    text-decoration: none;
+  }
+}
+
+// 定義生成響應式類別的混合
+@mixin responsive($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    $min-width: map-get($breakpoints, $breakpoint);
+
+    @media (min-width: #{$min-width}) {
+
+      @content;
+    }
+  }
+
+  @else {
+    @warn "無效的斷點: #{$breakpoint}";
+  }
+}
+
+:root {
+  /* 主色調 - 導覽列選單的亮藍色 */
+  --primary-color: #00c8f8;
+
+  /* 次要色調 - 按鈕、強調區域使用的亮藍色 */
+  --secondary-color: #009ecf;
+
+  /* 深色背景 - 導覽列背景 */
+  --dark-background: #333333;
+
+  /* 文字顏色 */
+  --text-color: #333333;
+  --text-light-gray: #888888;
+  --text-light-color: #ffffff;
+
+  /* 背景色 - 主要區域的白色背景 */
+  --background-color: #ffffff;
+
+  /* 灰色區塊背景 - 例如底部資訊欄 */
+  --gray-background: #f5f5f5;
+
+  /* 圖示色彩 */
+  --icon-dark: #444444;
+  --icon-light: #00c8f8;
+}

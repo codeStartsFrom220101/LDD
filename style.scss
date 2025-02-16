@@ -1,0 +1,470 @@
+@import "grid";
+
+@include resetCss();
+
+@each $breakpoint, $pointValue in $breakpoints {
+  @include responsive($breakpoint) {}
+}
+
+.site-header {
+  background-color: var(--dark-background);
+  height: 64px;
+  margin-top: 64px;
+  position: relative;
+  z-index: 10;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .logo {
+    color: var(--text-light-color);
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .menu-toggle {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+
+    .hamburger {
+      display: block;
+      background: none;
+      border: none;
+      height: 1.5px;
+      width: 24px;
+      background: #fff;
+      color: var(--text-light-color);
+      transition: all .3s ease;
+      position: relative;
+
+      &::before,
+      &::after {
+        content: '';
+        width: 100%;
+        height: 1.5px;
+        position: absolute;
+        background: #fff;
+        transition: all .3s ease;
+      }
+
+      &::before {
+        top: -10px;
+      }
+
+      &::after {
+        bottom: -10px;
+      }
+    }
+
+    &.open {
+      .hamburger {
+        transform: translateX(-26px);
+
+        &::after {
+          transform: translate(26px, -10px) rotate(-135deg);
+        }
+
+        &::before {
+          transform: translate(26px, 10px) rotate(135deg);
+        }
+      }
+    }
+
+    @include responsive(lg) {
+      display: none;
+    }
+  }
+
+  .main-nav {
+    position: absolute;
+    background: var(--dark-background);
+    width: 100%;
+    text-align: center;
+    top: 64px;
+    left: 0;
+    max-height: 0; // 使用 max-height 控制動畫
+    overflow: hidden; // 隱藏超出部分
+    z-index: -10;
+    transition: max-height 0.3s ease, z-index 0.3s ease; // 加入動畫效果
+
+    &.open {
+      max-height: 500px; // 展開時的最大高度，可根據內容調整
+    }
+
+    @include responsive(lg) {
+      position: static;
+      width: auto;
+      max-height: none; // 桌機版不限制高度
+      z-index: 0;
+      overflow: visible; // 桌機版顯示所有內容
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+
+      @include responsive(lg) {
+        flex-direction: row;
+      }
+    }
+
+    li {
+      a {
+        color: var(--text-light-color);
+        text-decoration: none;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        padding: 0.5rem;
+        display: block;
+
+        @include responsive(lg) {
+          padding: 0 0.75rem;
+          height: 64px;
+          line-height: 64px;
+        }
+
+        &.active,
+        &:hover {
+          background-color: var(--primary-color);
+        }
+      }
+    }
+  }
+
+}
+
+.slider {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 50vh;
+  z-index: 0;
+
+  @include responsive(sm) {
+    height: calc(100vw / 16 * 7 - 20px);
+  }
+
+  .slides {
+    position: absolute;
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 500%;
+    height: 100%;
+  }
+
+  img {
+    transition: all .5s ease;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  &__bar {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.75rem;
+
+    input[type="radio"] {
+      cursor: pointer;
+    }
+  }
+
+  &__text {
+    width: calc(100vw - 3rem);
+    background-color: #00000050;
+    color: var(--text-light-color);
+    position: absolute;
+    padding: 1rem;
+
+    @include responsive(md) {
+      font-size: 1rem;
+      top: 50%;
+      left: 50%;
+      transform: translateY(-50%);
+      padding: 2rem;
+      max-width: 350px;
+    }
+  }
+}
+
+.content-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  max-width: 768px;
+  margin: 0 auto;
+
+  @include responsive(lg) {
+    max-width: 1024px;
+  }
+
+  .content-block {
+    box-sizing: border-box;
+    margin-top: 2rem;
+    text-align: center;
+    max-width: 400px;
+    padding: 1rem;
+
+    @include responsive(lg) {
+      max-width: 300px;
+    }
+
+    .ibg {
+      width: 40%;
+      padding-top: 40%;
+      margin: 0 auto;
+      position: relative;
+      border-radius: 10%;
+      background-color: var(--dark-background);
+      transition: all 0.3s ease;
+
+      i {
+        color: var(--text-light-color);
+        font-size: 4rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    h3 {
+      margin-top: 1.5rem;
+      font-size: 2rem;
+      color: var(--text-color);
+    }
+
+    p {
+      margin-top: 1rem;
+      text-align: left;
+      color: var(--text-light-gray);
+      line-height: 1.6;
+    }
+
+    &:hover {
+      .ibg {
+        background-color: var(--primary-color);
+      }
+
+      h3 {
+        color: var(--primary-color);
+      }
+    }
+  }
+}
+
+.gallery {
+  padding: 2rem 1rem;
+  text-align: center;
+
+  .gallery-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+    margin: 0 auto;
+
+    @include responsive(sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include responsive(md) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include responsive(lg) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .gallery-imgblock {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      transition: transform 0.3s ease;
+      border-radius: 10px;
+
+      &.featured {
+        @include responsive(md) {
+          grid-column: span 2;
+          grid-row: span 2;
+
+          &:hover {
+            transform: scale(1.02);
+          }
+        }
+
+      }
+
+      .mask {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: #00000050;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+
+        i {
+          color: #fff;
+          cursor: pointer;
+        }
+
+        @include responsive(md) {
+          top: 150%;
+          transition: all .3s ease;
+        }
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      &:hover {
+        transform: scale(1.05);
+
+        .mask {
+          @include responsive(md) {
+            top: 0;
+          }
+        }
+      }
+
+      @include responsive(md) {
+        &:nth-last-child(1) {
+          display: none;
+        }
+      }
+
+      @include responsive(lg) {
+        &:nth-last-child(1) {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.skill-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 2rem 1rem;
+  text-align: center;
+  max-width: 100%;
+
+  @include responsive(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include responsive(lg) {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .skill-block {
+    position: relative;
+    padding: 1rem;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+
+    .circle-img {
+      max-width: 300px;
+      max-height: 300px;
+      border-radius: 50%;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(.7);
+      }
+
+      h4 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--text-light-color);
+        font-size: 1.7rem;
+      }
+
+      @include responsive(md) {
+        font-size: 2rem;
+      }
+
+      @include responsive(lg) {
+        img {
+          filter: brightness(1);
+          transition: all .3s ease;
+        }
+
+        h4 {
+          opacity: 0;
+          font-size: 1.5rem;
+          transition: all .3s ease;
+        }
+
+        &:hover {
+          img {
+            filter: brightness(.7);
+          }
+
+          h4 {
+            opacity: 1;
+          }
+        }
+      }
+
+
+    }
+
+    p {
+      margin-top: 1rem;
+      font-size: 1.4rem;
+      color: var(--text-color);
+    }
+  }
+}
+
+.footer {
+  background-color: var(--dark-background);
+  color: var(--text-light-color);
+  text-align: center;
+  padding: 1rem 0;
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+}
