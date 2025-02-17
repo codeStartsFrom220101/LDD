@@ -55,12 +55,21 @@ img {
   text-decoration: none;
 }
 
+body {
+  scroll-behavior: smooth;
+}
+
 .site-header {
   background-color: var(--dark-background);
   height: 64px;
   margin-top: 64px;
   position: relative;
   z-index: 10;
+}
+@media (min-width: 768px) {
+  .site-header {
+    margin-top: 0;
+  }
 }
 .site-header .container {
   display: -webkit-box;

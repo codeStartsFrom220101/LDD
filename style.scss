@@ -6,12 +6,20 @@
   @include responsive($breakpoint) {}
 }
 
+body {
+  scroll-behavior: smooth;
+}
+
 .site-header {
   background-color: var(--dark-background);
   height: 64px;
   margin-top: 64px;
   position: relative;
   z-index: 10;
+
+  @include responsive(md) {
+    margin-top: 0;
+  }
 
   .container {
     display: flex;
