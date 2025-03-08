@@ -3,6 +3,29 @@
   list-style-type: none;
 }
 
+$breakpoints: (
+  sm: 414px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1200px,
+);
+
+// 定義生成響應式類別的混合
+@mixin responsive($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    $max-width: map-get($breakpoints, $breakpoint);
+
+    @media (max-width: #{$max-width}) {
+
+      @content;
+    }
+  }
+
+  @else {
+    @warn "無效的斷點: #{$breakpoint}";
+  }
+}
+
 :root {
   --yellow: #FFC30B;
   --gray: #333333;
@@ -16,44 +39,61 @@ body {
   background: var(--yellow);
   color: var(--gray);
   font-family: "微軟正黑體";
+
+  @include responsive(md) {
+    margin-top: 20vh;
+  }
 }
 
 .todoList {
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   &__title {
     font-size: 6rem;
     font-weight: 900;
     line-height: 1.5;
+
+    @include responsive(md) {
+      font-size: 4rem;
+    }
+
+    @include responsive(sm) {
+      font-size: 3.5rem;
+    }
   }
 
   &__input {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    width: 100%;
     margin-bottom: 1.5rem;
 
     &--input {
-      flex: 8.5;
-      padding: 0 25px;
-      height: 50px;
+      flex: 5;
       outline: none;
       border: none;
-      border-radius: 25px 0 0 25px;
-      font-size: 1.5rem;
+      padding: .5rem;
+      border-radius: .5rem 0 0 .5rem;
       background: var(--ivoryWhite);
+      color: var(--gray);
+
+      @include responsive(md) {}
     }
-    
+
     &--btn {
-      flex: 1.5;
-      padding: 0.5rem;
-      border: none;
+      flex: 2;
       outline: none;
-      font-size: 1.5rem;
-      color: var(--ivoryWhite);
-      border-radius: 0 25px 25px 0;
+      border: none;
+      padding: .5rem 0;
+      border-radius: 0 .5rem .5rem 0;
       background: var(--gray);
+      color: var(--ivoryWhite);
       cursor: pointer;
+
+      @include responsive(md) {}
     }
   }
 
@@ -65,9 +105,13 @@ body {
     background: var(--ivoryWhite);
     opacity: 0;
 
+    @include responsive(md) {
+      padding: .8rem 25px;
+    }
+
     &.active {
       opacity: 1;
-      transition: all .2s;
+      transition: all .2s ease;
     }
 
     &--item {
@@ -75,7 +119,11 @@ body {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      
+
+      @include responsive(md) {
+        font-size: 1rem;
+      }
+
       .delete {
         padding: 0 1rem;
         outline: none;
@@ -84,9 +132,12 @@ body {
         background: transparent;
         color: var(--gray);
         cursor: pointer;
+
+        @include responsive(md) {
+          padding: 0 .5rem;
+          font-size: 1rem;
+        }
       }
     }
   }
 }
-
-

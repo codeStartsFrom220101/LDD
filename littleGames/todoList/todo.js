@@ -4,7 +4,6 @@ const todoList = document.querySelector(".todoList__list");
 
 
 let data = JSON.parse(localStorage.getItem("todoData")) || [];
-console.log(data);
 
 
 todoListContainer.addEventListener("click", (e) => {

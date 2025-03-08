@@ -212,27 +212,23 @@ body {
 }
 
 .content-section {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
+  display: grid;
   max-width: 768px;
   margin: 0 auto;
+  grid-template-columns: repeat(1, 1fr);
 
   @include responsive(lg) {
     max-width: 1024px;
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .content-block {
     box-sizing: border-box;
     margin-top: 2rem;
     text-align: center;
-    max-width: 400px;
     padding: 1rem;
 
-    @include responsive(lg) {
-      max-width: 300px;
-    }
+    @include responsive(lg) {}
 
     .ibg {
       width: 40%;
