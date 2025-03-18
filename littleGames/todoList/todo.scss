@@ -34,14 +34,161 @@ $breakpoints: (
 
 body {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   background: var(--yellow);
   color: var(--gray);
   font-family: "微軟正黑體";
 
+}
+
+.site-header {
+  background-color: var(--dark-background);
+  width: 100%;
+  margin-top: 0;
+  height: 64px;
+  position: relative;
+  z-index: 10;
+  font-weight: bold;
+
   @include responsive(md) {
-    margin-top: 20vh;
+    margin-top: 64px;
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .logo {
+    color: var(--gray);
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .menu-toggle {
+    width: 24px;
+    height: 24px;
+    display: none;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+
+    .hamburger {
+      display: block;
+      background: none;
+      border: none;
+      height: 1.5px;
+      width: 24px;
+      background: var(--gray);
+      color: var(--gray);
+      transition: all .3s ease;
+      position: relative;
+
+      &::before,
+      &::after {
+        content: '';
+        width: 100%;
+        height: 1.5px;
+        position: absolute;
+        background: var(--gray);
+        transition: all .3s ease;
+      }
+
+      &::before {
+        top: -10px;
+      }
+
+      &::after {
+        bottom: -10px;
+      }
+    }
+
+    &.open {
+      .hamburger {
+        transform: translateX(-26px);
+
+        &::after {
+          transform: translate(26px, -10px) rotate(-135deg);
+        }
+
+        &::before {
+          transform: translate(26px, 10px) rotate(135deg);
+        }
+      }
+    }
+
+    @include responsive(lg) {
+      display: flex;
+    }
+  }
+
+  .main-nav {
+    position: static;
+    width: auto;
+    max-height: none; // 桌機版不限制高度
+    z-index: 0;
+    overflow: visible; // 桌機版顯示所有內容
+    text-align: center;
+    top: 64px;
+    left: 0;
+    transition: max-height 0.3s ease, z-index 0.3s ease; // 加入動畫效果
+
+    @include responsive(lg) {
+      background: var(--gray);
+      overflow: hidden; // 隱藏超出部分
+      position: absolute;
+      width: 100%;
+      max-height: 0; // 使用 max-height 控制動畫
+      z-index: -10;
+    }
+
+    &.open {
+      max-height: 500px; // 展開時的最大高度，可根據內容調整
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+      margin: 0;
+      padding: 0;
+
+      @include responsive(lg) {
+        flex-direction: column;
+      }
+    }
+
+    li {
+      a {
+        color: var(--gray);
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        padding: 0.5rem;
+        display: block;
+
+        @include responsive(lg) {
+          color: var(--ivoryWhite);
+          padding: 0 0.75rem;
+          height: 64px;
+          line-height: 64px;
+        }
+
+        &.active,
+        &:hover {
+          background-color: var(--gray);
+          color: var(--ivoryWhite);
+        }
+      }
+    }
   }
 }
 
@@ -50,6 +197,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @include responsive(md) {
+    margin-top: 20vh;
+  }
 
   &__title {
     font-size: 6rem;

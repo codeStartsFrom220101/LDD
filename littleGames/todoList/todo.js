@@ -2,6 +2,16 @@ const todoListContainer = document.querySelector(".todoList");
 const todoInput = document.querySelector(".todoList__input > input");
 const todoList = document.querySelector(".todoList__list");
 
+// 切換手機版選單的顯示
+const menuToggle = document.querySelector('.menu-toggle');
+const mainNav = document.querySelector('.main-nav');
+const cprYear = document.querySelector('.cprYear')
+
+menuToggle.addEventListener('click', () => {
+  menuToggle.classList.toggle('open');
+  mainNav.classList.toggle('open');
+});
+
 
 let data = JSON.parse(localStorage.getItem("todoData")) || [];
 

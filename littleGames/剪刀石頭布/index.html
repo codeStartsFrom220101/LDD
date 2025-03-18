@@ -7,6 +7,26 @@
   <title>猜拳</title>
   <link rel="stylesheet" href="../color.css">
   <style>
+    :root {
+      /* 主色調 - 導覽列選單的亮藍色 */
+      --primary-color: #00c8f8;
+      /* 次要色調 - 按鈕、強調區域使用的亮藍色 */
+      --secondary-color: #009ecf;
+      /* 深色背景 - 導覽列背景 */
+      --dark-background: #333333;
+      /* 文字顏色 */
+      --text-color: #333333;
+      --text-light-gray: #888888;
+      --text-light-color: #ffffff;
+      /* 背景色 - 主要區域的白色背景 */
+      --background-color: #ffffff;
+      /* 灰色區塊背景 - 例如底部資訊欄 */
+      --gray-background: #f5f5f5;
+      /* 圖示色彩 */
+      --icon-dark: #444444;
+      --icon-light: #00c8f8;
+    }
+
     * {
       padding: 0;
       margin: 0;
@@ -15,12 +35,190 @@
 
     body {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       height: 100vh;
+      width: 100vw;
     }
 
-    .container {
+    .site-header {
+      width: 100%;
+      background-color: var(--dark-background);
+      height: 64px;
+      margin-top: 64px;
+      position: relative;
+      z-index: 10;
+    }
+
+    @media (min-width: 768px) {
+      .site-header {
+        margin-top: 0;
+      }
+    }
+
+    .site-header .container {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      height: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .site-header .logo {
+      color: var(--text-light-color);
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .site-header .menu-toggle {
+      width: 24px;
+      height: 24px;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .site-header .menu-toggle .hamburger {
+      display: block;
+      background: none;
+      border: none;
+      height: 1.5px;
+      width: 24px;
+      background: #fff;
+      color: var(--text-light-color);
+      -webkit-transition: all 0.3s ease;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .site-header .menu-toggle .hamburger::before,
+    .site-header .menu-toggle .hamburger::after {
+      content: "";
+      width: 100%;
+      height: 1.5px;
+      position: absolute;
+      background: #fff;
+      -webkit-transition: all 0.3s ease;
+      transition: all 0.3s ease;
+    }
+
+    .site-header .menu-toggle .hamburger::before {
+      top: -10px;
+    }
+
+    .site-header .menu-toggle .hamburger::after {
+      bottom: -10px;
+    }
+
+    .site-header .menu-toggle.open .hamburger {
+      -webkit-transform: translateX(-26px);
+      transform: translateX(-26px);
+    }
+
+    .site-header .menu-toggle.open .hamburger::after {
+      -webkit-transform: translate(26px, -10px) rotate(-135deg);
+      transform: translate(26px, -10px) rotate(-135deg);
+    }
+
+    .site-header .menu-toggle.open .hamburger::before {
+      -webkit-transform: translate(26px, 10px) rotate(135deg);
+      transform: translate(26px, 10px) rotate(135deg);
+    }
+
+    @media (min-width: 1024px) {
+      .site-header .menu-toggle {
+        display: none;
+      }
+    }
+
+    .site-header .main-nav {
+      position: absolute;
+      background: var(--dark-background);
+      width: 100%;
+      text-align: center;
+      top: 64px;
+      left: 0;
+      max-height: 0;
+      overflow: hidden;
+      z-index: -10;
+      -webkit-transition: max-height 0.3s ease, z-index 0.3s ease;
+      transition: max-height 0.3s ease, z-index 0.3s ease;
+    }
+
+    .site-header .main-nav.open {
+      max-height: 500px;
+    }
+
+    @media (min-width: 1024px) {
+      .site-header .main-nav {
+        position: static;
+        width: auto;
+        max-height: none;
+        z-index: 0;
+        overflow: visible;
+      }
+    }
+
+    .site-header .main-nav ul {
+      list-style: none;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+    }
+
+    @media (min-width: 1024px) {
+      .site-header .main-nav ul {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+      }
+    }
+
+    .site-header .main-nav li a {
+      color: var(--text-light-color);
+      text-decoration: none;
+      font-size: 16px;
+      -webkit-transition: all 0.3s ease;
+      transition: all 0.3s ease;
+      padding: 0.5rem;
+      display: block;
+    }
+
+    @media (min-width: 1024px) {
+      .site-header .main-nav li a {
+        padding: 0 0.75rem;
+        height: 64px;
+        line-height: 64px;
+      }
+    }
+
+    .site-header .main-nav li a.active,
+    .site-header .main-nav li a:hover {
+      background-color: var(--primary-color);
+    }
+
+    .gameContainer {
       width: 300px;
       border-radius: 15px;
       background: var(--dark);
@@ -63,10 +261,6 @@
     }
 
     .result {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
       font-size: 3rem;
       opacity: 0;
       font-weight: 900;
@@ -86,7 +280,21 @@
 </head>
 
 <body>
-  <div class="container">
+  <header class="site-header">
+    <div class="container">
+      <div class="logo">LDD</div>
+      <div class="menu-toggle" aria-label="Toggle navigation">
+        <div class="hamburger">
+        </div>
+      </div>
+      <div class="main-nav">
+        <ul>
+          <li><a href="../../index.html">首頁</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+  <div class="gameContainer">
     <h1>剪刀石頭布</h1>
     <div class="chooseOne">
       <div data-type="0">剪</div>
@@ -112,6 +320,16 @@
   const result = document.querySelector('.result')
   const resultTxt = document.querySelector('.resultTxt');
   const arr = ['剪', '石', '布'];
+
+  // 切換手機版選單的顯示
+  const menuToggle = document.querySelector('.menu-toggle');
+  const mainNav = document.querySelector('.main-nav');
+  const cprYear = document.querySelector('.cprYear')
+
+  menuToggle.addEventListener('click', () => {
+    menuToggle.classList.toggle('open');
+    mainNav.classList.toggle('open');
+  });
 
   let randomNum = 0;
   // 建立能清除的定時器

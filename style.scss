@@ -6,7 +6,7 @@
   @include responsive($breakpoint) {}
 }
 
-body {
+html {
   scroll-behavior: smooth;
 }
 

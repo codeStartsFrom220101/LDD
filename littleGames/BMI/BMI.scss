@@ -2,21 +2,27 @@
 // @import "../color.css";
 
 /* BMI.min.css - 輕快主題樣式 */
-body {
-  font-family: Arial, sans-serif;
-  /* 明亮的天藍色背景 */
-  color: var(--dark);
-  /* 深灰色文字，易於閱讀 */
+// body {
+//   font-family: Arial, sans-serif;
+//   /* 明亮的天藍色背景 */
+//   color: var(--dark);
+//   /* 深灰色文字，易於閱讀 */
+//   margin: 0;
+//   padding: 0;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 100vh;
+//   width: 100vw;
+// }
+* {
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  box-sizing: border-box;
 }
 
 .box {
-  max-width: 600px;
+  width: 100%;
   margin: 1.5rem auto;
   display: flex;
   flex-wrap: wrap;
@@ -30,12 +36,21 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   /* 輕微陰影 */
 
+  @media (min-width: 600px) {
+    width: 600px;
+  }
+
   .title {
     width: 100%;
     text-align: center;
-    font-size: 4rem;
+    font-size: 2.5rem;
     margin-bottom: 2rem;
     color: var(--slateBlue);
+
+    @media (min-width: 600px) {
+      font-size: 4rem;
+    }
+
     /* 天藍色標題 */
   }
 
@@ -44,35 +59,44 @@ body {
     display: flex;
     align-items: center;
     margin-bottom: 1.5rem;
-  }
 
-  label {
-    flex: 1;
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
-    color: #555;
-    /* 中灰色文字 */
-  }
+    label {
+      width: 50%;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      color: #555;
+      text-wrap: nowrap;
+      /* 中灰色文字 */
 
-  .gender,
-  .height,
-  .weight {
-    flex: 6;
-    font-size: 1.5rem;
-    margin: 1.3rem 0;
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    /* 邊框顏色 */
-    border-radius: 0.5rem;
-  }
+      @media (min-width: 400px) {
+        width: 20%;
+      }
+    }
 
-  .height:focus,
-  .weight:focus {
-    border-color: var(--slateblue);
-    /* 焦點邊框顏色 */
-    outline: none;
-    box-shadow: 0 0 5px rgba(30, 144, 255, 0.3);
+    .gender,
+    .height,
+    .weight {
+      width: 50%;
+      font-size: 1.5rem;
+      margin: 1.3rem 0;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      /* 邊框顏色 */
+      border-radius: 0.5rem;
+
+      @media (min-width: 350px) {
+        width: 70%;
+      }
+    }
+
+    .height:focus,
+    .weight:focus {
+      border-color: var(--slateblue);
+      /* 焦點邊框顏色 */
+      outline: none;
+      box-shadow: 0 0 5px rgba(30, 144, 255, 0.3);
+    }
   }
 
   .btnBlock {
@@ -112,19 +136,21 @@ body {
     }
   }
 
-  .result {
-    width: 100%;
-    padding: 1rem;
-    background-color: var(--slateBlue);
-    /* 淡藍色背景，舒適明亮 */
-    border: 1px solid #15273033;
-    /* 輕盈的邊框顏色 */
-    border-radius: 0.5rem;
-    font-size: 1.5rem;
-    color: var(--light);
-    /* 深藍色文字，強調結果 */
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    /* 輕微陰影 */
-  }
+}
+
+.result {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: var(--slateBlue);
+  /* 淡藍色背景，舒適明亮 */
+  border: 1px solid #15273033;
+  /* 輕盈的邊框顏色 */
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  color: var(--light);
+  /* 深藍色文字，強調結果 */
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* 輕微陰影 */
 }
